@@ -27,20 +27,16 @@ import { ref, onMounted } from 'vue'
 import type { Event } from '../components/models'
 import { dateFormater } from '../helper/DateFormater'
 import { useRouter } from 'vue-router'
+import api from 'src/services/api'
 const router = useRouter()
 
 const tournaments = ref<Event[]>([])
 
 const fetchEvents = async () => {
   try {
-    const response = await fetch('http://localhost:3000/events', {
-      method: 'GET', // hoặc 'POST', 'PUT', 'DELETE', tùy vào yêu cầu của API
-      headers: {
-        'Content-Type': 'application/json', // Đặt kiểu dữ liệu là JSON
-      },
-    })
+    const response = await api.get('/events')
 
-    const data = await response.json()
+    const data = await response.data;
     tournaments.value = data
   } catch (error) {
     console.error('Error fetching players:', error)

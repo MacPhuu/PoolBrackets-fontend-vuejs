@@ -67,6 +67,7 @@ import { ref, onMounted } from 'vue'
 import type { Event } from '../components/models'
 import { dateFormater } from '../helper/DateFormater'
 import { pathSegmentation } from '../helper/PathSegmentation'
+import api from 'src/services/api'
 
 const route = useRoute()
 const router = useRouter()
@@ -94,16 +95,9 @@ const event = ref<Event>({
 })
 
 const fetchPlayers = async () => {
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer your-token',
-  }
   try {
-    const eventResponse = await fetch(`http://localhost:3000/events/${eventNameStr}`, {
-      method: 'GET',
-      headers: headers,
-    }).then((res) => res.json() as Promise<Event>)
-    event.value = eventResponse
+    const eventResponse = await api.get(`/events/${eventNameStr}`)
+    event.value = eventResponse.data;
   } catch (error) {
     console.error('Error fetching data:', error)
   } finally {

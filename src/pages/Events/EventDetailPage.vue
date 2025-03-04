@@ -34,6 +34,7 @@ import { useRoute } from 'vue-router'
 import PlayerCardComponent from 'components/PlayerCardComponent.vue'
 import { ref, onMounted } from 'vue'
 import type { Player, Event } from '../../components/models'
+import api from 'src/services/api'
 
 const route = useRoute()
 
@@ -56,24 +57,14 @@ const event = ref<Event>({
 })
 
 const fetchData = async () => {
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: 'Bearer your-token',
-  }
 
   try {
     const [eventResponse, playersResponse] = await Promise.all([
-      fetch(`http://localhost:3000/events/${eventNameStr}`, {
-        method: 'GET',
-        headers: headers,
-      }).then((res) => res.json() as Promise<Event>),
-      fetch(`http://localhost:3000/players`, {
-        method: 'GET',
-        headers: headers,
-      }).then((res) => res.json() as Promise<Player[]>),
-    ])
-    event.value = eventResponse
-    players.value = playersResponse
+      api.get(`/events/${eventNameStr}`),
+      api.get('/players'),
+  ])
+    event.value = eventResponse.data
+    players.value = playersResponse.data
   } catch (error) {
     console.error('Error fetching data:', error)
   } finally {

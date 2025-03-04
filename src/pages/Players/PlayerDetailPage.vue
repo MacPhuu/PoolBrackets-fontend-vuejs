@@ -29,6 +29,7 @@
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import type { Player } from '../../components/models'
+import api from 'src/services/api'
 
 const route = useRoute()
 const playerName = route.params.playerName
@@ -43,14 +44,9 @@ const player = ref<Player>({
 
 const fetchPlayers = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/players/${playerNameStr}`, {
-      method: 'GET', // hoặc 'POST', 'PUT', 'DELETE', tùy vào yêu cầu của API
-      headers: {
-        'Content-Type': 'application/json', // Đặt kiểu dữ liệu là JSON
-      },
-    })
+    const response = await api.get(`players/${playerNameStr}`)
 
-    const data = await response.json()
+    const data = await response.data
     player.value = data
     if (player.value && !player.value.portrait) {
       player.value.portrait = 'https://storage.googleapis.com/wnt-cm-public/media/players/generic-profile_mini_dcryfs.webp'
