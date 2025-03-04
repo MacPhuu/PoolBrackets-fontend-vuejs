@@ -1,11 +1,12 @@
+import { useRouter } from 'vue-router';
 <template>
   <q-intersection transition="scale" class="player-card-item q-ma-xs">
-    <q-card class="my-card  bg-no-3" flat >
+    <q-card class="my-card  bg-no-3 cursor-pointer" @click="onPlayerClick" flat >
       <q-card-section horizontal >
         <q-card-section class="q-pa-sm">
           <q-img
             class="col"
-            :src="playerPortrait||dfprops.playerPortrait"
+            :src="playerPortrait||defaultPortrait"
             style="height: 100px; width: 100px;"
           />
         </q-card-section>
@@ -18,17 +19,21 @@
   </q-intersection>
 </template>
 <script lang='ts' setup>
+import { useRouter } from "vue-router";
+const router = useRouter()
 export interface PlayerCardProps{
     playerName: string
     playerNation: string
     playerPortrait: string
 }
 
-const dfprops = withDefaults(defineProps<PlayerCardProps>(), {
-    playerName: '',
-    playerNation: '',
-    playerPortrait: 'https://storage.googleapis.com/wnt-cm-public/media/players/generic-profile_mini_dcryfs.webp',
-})
+const { playerName = '', playerNation = '', playerPortrait = 'https://storage.googleapis.com/wnt-cm-public/media/players/generic-profile_mini_dcryfs.webp' } = defineProps<PlayerCardProps>();
+
+const defaultPortrait = 'https://storage.googleapis.com/wnt-cm-public/media/players/generic-profile_mini_dcryfs.webp';
+
+const onPlayerClick = async () =>{
+  await router.push(`players/${playerName}`)
+}
 </script>
 <style lang="sass" scoped>
 .player-card-item

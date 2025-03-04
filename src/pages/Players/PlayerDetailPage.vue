@@ -4,7 +4,7 @@
       <div class="row justify-center" style="aspect-ratio: 1">
         <div class="column col-6 bg-no-1 img-part q-pa-md" style="aspect-ratio: 1">
           <img
-            src="https://storage.googleapis.com/wnt-cm-public/media/players/fedor-gorst_premium_wpm424.webp"
+            :src="player.portrait ||''"
             class="contain fit"
           />
         </div>
@@ -12,12 +12,12 @@
           <div
             class="text-h2 text-secondary text-weight-medium text-italic font-roboto-condensed text-uppercase"
           >
-            Fedor Gorst
+            {{ player.name }}
           </div>
           <div
             class="text-h4 text-gray text-weight-medium text-italic font-roboto-condensed text-uppercase"
           >
-            USA
+            {{ player.nation }}
           </div>
         </div>
       </div>
@@ -26,17 +26,46 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { ref, onMounted } from 'vue'
 import type { Player } from '../../components/models'
+
+const route = useRoute()
+const playerName = route.params.playerName
+const playerNameStr = Array.isArray(playerName) ? playerName[0] : playerName || 'error'
 
 const player = ref<Player>({
   name: '',
   nation: '',
   portrait: '',
-  point: '',
+  point: '', 
 })
 
-console.log(player)
+const fetchPlayers = async () => {
+  try {
+    const response = await fetch(`http://localhost:3000/players/${playerNameStr}`, {
+      method: 'GET', // hoặc 'POST', 'PUT', 'DELETE', tùy vào yêu cầu của API
+      headers: {
+        'Content-Type': 'application/json', // Đặt kiểu dữ liệu là JSON
+      },
+    })
+
+    const data = await response.json()
+    player.value = data
+    if (player.value && !player.value.portrait) {
+      player.value.portrait = 'https://storage.googleapis.com/wnt-cm-public/media/players/generic-profile_mini_dcryfs.webp'
+    }
+  } catch (error) {
+    console.error('Error fetching players:', error)
+  }
+}
+
+onMounted(async () => {
+  await fetchPlayers()
+  console.log(player)
+})
+
+
 </script>
 
 <style lang="sass" scoped>

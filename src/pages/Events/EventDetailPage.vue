@@ -55,7 +55,7 @@ const event = ref<Event>({
   is_happen: false,
 })
 
-const fetchPlayers = async () => {
+const fetchData = async () => {
   const headers = {
     'Content-Type': 'application/json',
     Authorization: 'Bearer your-token',
@@ -82,6 +82,6 @@ const fetchPlayers = async () => {
 }
 
 onMounted(async () => {
-  await fetchPlayers()
+  await fetchData()
 })
 </script>
