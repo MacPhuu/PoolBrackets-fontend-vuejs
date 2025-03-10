@@ -1,8 +1,11 @@
 <template>
   <q-page class="row justify-center">
-    <div class="column">
-      <q-spinner v-if="loading" color="primary" />
-      <!-- Part 2 -->
+    <div class="col justify-center items-center" v-if="loading">
+      <div class="row justify-center items-center" style="height: 60vh">
+        <q-spinner-cube color="orange" size="5.5em" />
+      </div>
+    </div>
+    <div class="column col" v-if="!loading">
       <div
         class="event-infor-component w-100 bg-no-2 q-my-sm row"
         style="height: auto; border-radius: 20px; width: 100%"
@@ -14,7 +17,7 @@
           >
             PLAYER LIST
           </div>
-          <div class="row q-my-lg justify-center" style="width: 95%">
+          <div class="row q-my-lg justify-center bg-no-2" style="width: 95%">
             <PlayerCardComponent
               v-for="(player, index) in players"
               :key="index"
@@ -35,8 +38,11 @@ import PlayerCardComponent from 'components/PlayerCardComponent.vue'
 import { ref, onMounted } from 'vue'
 import type { Player, Event } from '../../components/models'
 import api from 'src/services/api'
+import { useEventStore } from 'src/stores/event';
 
 const route = useRoute()
+
+const eventStore = useEventStore()
 
 const eventName = route.params.eventName
 const eventNameStr = Array.isArray(eventName) ? eventName[0] : eventName || 'error'
@@ -53,16 +59,15 @@ const event = ref<Event>({
   venue: '',
   location: '',
   date: '',
-  is_happen: false,
+  isHappen: false,
 })
 
 const fetchData = async () => {
-
   try {
     const [eventResponse, playersResponse] = await Promise.all([
       api.get(`/events/${eventNameStr}`),
       api.get('/players'),
-  ])
+    ])
     event.value = eventResponse.data
     players.value = playersResponse.data
   } catch (error) {
@@ -73,6 +78,7 @@ const fetchData = async () => {
 }
 
 onMounted(async () => {
+  console.log(eventStore.getEventId)
   await fetchData()
 })
 </script>

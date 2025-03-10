@@ -11,7 +11,7 @@ const routes: RouteRecordRaw[] = [
       { path: "/rankings", component: () => import("pages/RankingsPage.vue") },
       {
         path: "/live-scores",
-        component: () => import("pages/Players/PlayerDetailPage.vue"),
+        component: () => import("pages/LiveScoresPage.vue"),
       },
       {
         path: "/events",
@@ -34,6 +34,10 @@ const routes: RouteRecordRaw[] = [
             path: "/events/:eventName/event-live-score",
             component: () => import("pages/Events/EventLiveScoresPage.vue"),
           },
+          {
+            path: "/events/:eventName/event-branches",
+            component: () => import("pages/Events/EventBranchesPage.vue"),
+          },
         ],
       },
       {
@@ -41,6 +45,26 @@ const routes: RouteRecordRaw[] = [
         component: () => import("pages/Players/PlayerDetailPage.vue"),
       },
     ],
+  },
+
+  {
+    path: "/host",
+    component: () => import("layouts/MainLayout.vue"),
+    children:[
+      {path: "profile/:hostName/",
+        component: () => import("pages/Host/HostMainPage.vue"),
+      }
+    ]
+  },
+
+  {
+    path: "/login",
+    component: () => import("pages/Authentication/LoginPage.vue"),
+  },
+
+  {
+    path: "/sign-up",
+    component: () => import("pages/Authentication/SignUpPage.vue"),
   },
 
   // Always leave this as last one,

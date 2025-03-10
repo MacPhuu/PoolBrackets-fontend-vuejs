@@ -7,8 +7,13 @@
         </q-toolbar-title>
       </q-toolbar>
       <q-tabs v-model="selectedTab">
-        <NavBarComponent v-for="(tab, index) in tabs" :key="index" :tabName="tab.tabName" :tabLabel="tab.tabLabel"
-          :tabDes="tab.tabDes" />
+        <NavBarComponent
+          v-for="(tab, index) in tabs"
+          :key="index"
+          :tabName="tab.tabName"
+          :tabLabel="tab.tabLabel"
+          :tabDes="tab.tabDes"
+        />
       </q-tabs>
     </q-header>
     <q-footer elevated>
@@ -32,13 +37,12 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const tabs = ref([
-  { tabName: '/profile', tabLabel: 'Profile', tabDes: '/profile' },
+  { tabName: '/host/infor', tabLabel: 'Infor', tabDes: '/host/infor' },
   { tabName: '/news', tabLabel: 'News', tabDes: '/news' },
   { tabName: '/live-scores', tabLabel: 'Live Scores', tabDes: '/live-scores' },
   { tabName: '/players', tabLabel: 'Players', tabDes: '/players' },
   { tabName: '/rankings', tabLabel: 'Rankings', tabDes: '/rankings' },
   { tabName: '/events', tabLabel: 'Events', tabDes: '/events' },
-  { tabName: '/qualifiers', tabLabel: 'Qualifiers', tabDes: '/qualifiers' },
 ])
 
 const selectedTab = ref(route.path)

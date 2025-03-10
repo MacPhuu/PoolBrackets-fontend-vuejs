@@ -1,5 +1,5 @@
 <template>
-  <q-intersection transition="scale" class="player-card-item q-ma-xs">
+  <q-intersection transition="scale" class="player-card-item q-ma-xs" v-if="isStart">
     <q-card class="my-card bg-no-3" flat>
       <q-card-section horizontal>
         <q-card-section
@@ -18,7 +18,7 @@
           style="flex-grow: 1"
         >
           <div
-            class="text-h6 text-capitalize text-italic player-point"
+            class="text-h6 text-capitalize text-italic"
             :class="{
               winner: isFinish && secondPoint < firstPoint,
             }"
@@ -26,7 +26,7 @@
             {{ firstPoint }}
           </div>
           <div
-            class="text-h6 text-capitalize text-italic"
+            class="text-h6 text-capitalize text-italic "
             :class="{
               winner: isFinish && secondPoint > firstPoint,
             }"
@@ -46,6 +46,7 @@ export interface LiveScoreComponentProps {
   firstPoint: number
   secondPoint: number
   isFinish: boolean
+  isStart: boolean
 }
 
 withDefaults(defineProps<LiveScoreComponentProps>(), {
@@ -55,11 +56,12 @@ withDefaults(defineProps<LiveScoreComponentProps>(), {
   firstPoint: 0,
   secondPoint: 0,
   isFinish: false,
+  isStart: false,
 })
 </script>
 <style lang="sass" scoped>
 .player-card-item
-  width: 300px
+  width: 30%
 
 .winner
   color: #ed0202

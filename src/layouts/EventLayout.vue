@@ -63,7 +63,7 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import type { Event } from '../components/models'
 import { dateFormater } from '../helper/DateFormater'
 import { pathSegmentation } from '../helper/PathSegmentation'
@@ -80,10 +80,10 @@ const loading = ref(true)
 const tabs = ref([
   { name: 'player-list', label: 'Players list', tabDes: '/' },
   { name: 'event-live-score', label: 'Live scores', tabDes: '/event-live-score' },
+  { name: 'event-branches', label: 'Branches', tabDes: '/event-branches' },
   { name: 'event-rankings', label: 'Rankings', tabDes: '/event-rankings' },
 ])
-const selectedTab =
-  pathSegmentation(route.path) == '' ? ref('player-list') : ref(pathSegmentation(route.path))
+const selectedTab = (pathSegmentation(route.path) == ''? ref('player-list') : ref(pathSegmentation(route.path)))
 
 const event = ref<Event>({
   id: 0,
@@ -91,13 +91,13 @@ const event = ref<Event>({
   venue: '',
   location: '',
   date: '',
-  is_happen: false,
+  isHappen: false,
 })
 
-const fetchPlayers = async () => {
+const fetchEvents = async () => {
   try {
     const eventResponse = await api.get(`/events/${eventNameStr}`)
-    event.value = eventResponse.data;
+    event.value = eventResponse.data[0]
   } catch (error) {
     console.error('Error fetching data:', error)
   } finally {
@@ -111,7 +111,12 @@ const eventTabsHandle = async (tabDes: string) => {
 }
 
 onMounted(async () => {
-  await fetchPlayers()
+  await fetchEvents()
+})
+
+watch(route, (newRoute) => {
+  const currPath = pathSegmentation(newRoute.path)
+  selectedTab.value = currPath=='' || currPath == undefined? 'player-list' : currPath
 })
 </script>
 

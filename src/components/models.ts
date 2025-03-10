@@ -11,5 +11,18 @@ export interface Event {
   venue: string;
   location: string;
   date: string;
-  is_happen: boolean;
+  isHappen: boolean;
+}
+
+export interface Match{
+  id: number;
+  eventName: string;
+  table: string;
+  firstPlayerName: string;
+  firstPlayerPoint: number;
+  secondPlayerName: string;
+  secondPlayerPoint: number;
+  isFinish: boolean;
+  isStart: boolean;
+  stage: number;
 }

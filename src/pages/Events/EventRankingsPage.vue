@@ -1,6 +1,11 @@
 <template>
   <q-page class="row justify-center">
-    <div class="col-12 q-py-md column">
+    <div class="col justify-center items-center">
+      <div class="row justify-center items-center" v-if="loading" style="height: 60vh">
+        <q-spinner-cube color="orange" size="5.5em" />
+      </div>
+    </div>
+    <div class="col-12 q-py-md column" v-if="!loading">
       <div
         class="event-infor-component w-100 bg-no-1 q-my-lg row"
         style="height: auto; border-radius: 20px; width: 100%"
@@ -72,6 +77,8 @@ import PlayerComponent from 'components/PlayerComponent.vue'
 import type { Player } from '../../components/models'
 import api from 'src/services/api'
 
+const loading = ref(true)
+
 const defaultPortrait =
   'https://storage.googleapis.com/wnt-cm-public/media/players/generic-profile_mini_dcryfs.webp'
 
@@ -85,7 +92,9 @@ const fetchPlayers = async () => {
     players.value = data
   } catch (error) {
     console.error('Error fetching players:', error)
-  }
+  } finally {
+        loading.value = false;
+      }
 }
 
 onMounted(async () => {
