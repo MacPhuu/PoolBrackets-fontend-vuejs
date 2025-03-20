@@ -20,7 +20,7 @@
           <div class="column q-my-lg" style="width: 90%" v-if="matchFound">
             <BrancheComponent
               class="bg-white text-primary"
-              v-for="(match, index) in matches.filter(m => m.stage == 0)"
+              v-for="(match, index) in matches.filter((m) => m.stage == 1)"
               :key="index"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
@@ -39,7 +39,7 @@
           <div class="column q-my-lg" style="width: 90%" v-if="matchFound">
             <BrancheComponent
               class="bg-white text-primary"
-              v-for="(match, index) in matches.filter(m => m.stage == 1)"
+              v-for="(match, index) in matches.filter((m) => m.stage == 2)"
               :key="index"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
@@ -58,7 +58,7 @@
           <div class="column q-my-lg" style="width: 90%" v-if="matchFound">
             <BrancheComponent
               class="bg-white text-primary"
-              v-for="(match, index) in matches.filter(m => m.stage == 2)"
+              v-for="(match, index) in matches.filter((m) => m.stage == 3)"
               :key="index"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
@@ -77,7 +77,7 @@
           <div class="column q-my-lg" style="width: 90%" v-if="matchFound">
             <BrancheComponent
               class="bg-white text-primary"
-              v-for="(match, index) in matches.filter(m => m.stage == 3)"
+              v-for="(match, index) in matches.filter((m) => m.stage == 4)"
               :key="index"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
@@ -96,7 +96,7 @@
           <div class="column q-my-lg" style="width: 90%" v-if="matchFound">
             <BrancheComponent
               class="bg-white text-primary"
-              v-for="(match, index) in matches.filter(m => m.stage == 4)"
+              v-for="(match, index) in matches.filter((m) => m.stage == 5)"
               :key="index"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
@@ -105,7 +105,11 @@
               :isFinish="match.isFinish"
             />
           </div>
-          <div class="row q-my-lg justify-center text-white text-h4 text-italic" style="width: 95%" v-if="!matchFound" >
+          <div
+            class="row q-my-lg justify-center text-white text-h4 text-italic"
+            style="width: 95%"
+            v-if="!matchFound"
+          >
             No matches are currently being played.
           </div>
         </div>

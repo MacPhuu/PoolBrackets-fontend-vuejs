@@ -5,18 +5,18 @@
         <div
           class="text-h6 absolute-top text-center bg-transparent text-uppercase text-bold text-italic"
         >
-          {{ tournamentName }}
+          {{ eventName }}
         </div>
         <div
           class="text-subtitle2 absolute-bottom text-center bg-transparent text-uppercase text-bold text-italic"
         >
-          <div>{{ tournamentVenue }}</div>
-          <div class="text-secondary">{{ tournamentLoc }}</div>
+          <div>{{ eventVenue }}</div>
+          <div class="text-secondary">{{ eventLoc }}</div>
         </div>
         <div
           class="absolute-top-right text-subtitle2 text-italic text-bold bg-positive"
           style="border-radius: 0 0 0 10px"
-          v-if="tournamentIsHappening"
+          v-if="eventIsHappening"
         >
           Taking Place
         </div>
@@ -25,26 +25,14 @@
         <div class="row" style="width: 100%">
           <div class="col-8">
             <q-btn flat round icon="event" />
-            <q-btn flat> {{ tournamentTime }} </q-btn>
+            <q-btn flat> {{ eventTime }} </q-btn>
           </div>
           <div class="col-4 column text-right justify-center">
-            <q-btn
-              class="bg-secondary"
-              unelevated
-              rounded
-              color="primary"
-              v-if="!tournamentIsHappening"
-            >
+            <q-btn class="bg-secondary" unelevated rounded color="primary" v-if="!eventIsHappening">
               View Result
             </q-btn>
-            <q-btn
-              class="bg-secondary"
-              unelevated
-              rounded
-              color="primary"
-              v-if="tournamentIsHappening"
-            >
-              View Tournament</q-btn
+            <q-btn class="bg-secondary" unelevated rounded color="primary" v-if="eventIsHappening">
+              View Event</q-btn
             >
           </div>
         </div>
@@ -53,24 +41,29 @@
   </q-intersection>
 </template>
 <script setup lang="ts">
-export interface TournamentComponentProps {
-  tournamentName: string
-  tournamentLoc: string
-  tournamentTime: string
-  tournamentVenue: string
-  tournamentIsHappening: boolean
+export interface EventComponentProps {
+  eventName: string
+  eventLoc: string
+  eventTime: string
+  eventVenue: string
+  eventIsHappening: boolean
 }
 
-withDefaults(defineProps<TournamentComponentProps>(), {
-  tournamentName: '',
-  tournamentLoc: '',
-  tournamentTime: '',
-  tournamentVenue: '',
-  tournamentIsHappening: false,
+withDefaults(defineProps<EventComponentProps>(), {
+  eventName: '',
+  eventLoc: '',
+  eventTime: '',
+  eventVenue: '',
+  eventIsHappening: false,
 })
 </script>
 <style lang="sass" scoped>
 .intersection-item
-    height: 400px
-    width: 500px
+    height: 350px
+    width: 350px
+</style>
+
+<style lang="sass">
+.item-background-image
+    filter: blur(1px) grayscale(90%) brightness(70%) contrast(120%)
 </style>

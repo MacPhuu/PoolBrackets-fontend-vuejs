@@ -1,7 +1,6 @@
 <template>
   <q-page class="row items-center justify-evenly">
     <div class="row q-pt-lg">
-      <div class="col"></div>
       <div class="col justify-center">
         <div class="row justify-center items-center" v-if="loading" style="height: 60vh">
           <q-spinner-cube color="orange" size="10.5em" />
@@ -67,3 +66,5 @@ onMounted(async () => {
 </script>
 
 <style lang="sass"></style>
+
+<style lang="scss" scoped></style>
