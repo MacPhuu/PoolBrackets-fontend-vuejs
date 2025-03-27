@@ -1,10 +1,19 @@
 <template>
-  <q-page class="row items-center justify-evenly">
+  <q-page class="row q-pt-lg justify-evenly">
     <div class="row items-center justify-center" style="width: 100%" v-if="loading">
       <q-spinner-cube color="orange" size="5.5em" />
     </div>
     <div class="col-1" style="max-width: 100px"></div>
     <div class="col" v-if="!loading">
+      <div style="width: 23%;">
+          <q-card flat class="q-ma-sm" style="background-color:rgba(0, 0, 0, 0.0); ">
+            <div class="row items-center" style="height: 150px;" >
+              <q-btn round class="q-pa-md" color="secondary" icon="add" >
+                <q-tooltip class="bg-primary" anchor="center right" self="center start" style="font-size: 14px;">Create Tournament</q-tooltip>
+              </q-btn>
+            </div>
+          </q-card>
+        </div>
       <div class="row q-gutter-sm">
         <EventComponent
           v-for="(event, index) in events"
@@ -16,13 +25,7 @@
           :eventIsHappening="event.isHappen"
           @click="handleEventClick(event.name, event.id)"
         />
-        <q-intersection class="intersection-item">
-          <q-card flat bordered class="q-ma-sm">
-            <div class="row justify-center items-center" style="width: 100%; height: 280px">
-              <q-btn round class="q-pa-md" color="secondary" icon="add" />
-            </div>
-          </q-card>
-        </q-intersection>
+        
       </div>
     </div>
   </q-page>
@@ -69,7 +72,5 @@ onMounted(async () => {
 </script>
 
 <style lang="sass" scoped>
-.intersection-item
-    height: 100%
-    width: 350px
+
 </style>

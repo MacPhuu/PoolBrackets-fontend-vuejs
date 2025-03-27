@@ -71,7 +71,6 @@ const onSubmit = async () => {
   try {
     const response = await api.post('/login', loginInforJson)
 
-    console.log('Login successful:', response.data)
     localStorage.setItem('userName', response.data.userName)
     localStorage.setItem('role', response.data.role)
     localStorage.setItem('Token', response.data.token)

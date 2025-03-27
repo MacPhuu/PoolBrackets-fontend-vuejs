@@ -7,7 +7,7 @@
           style="position: absolute; top: -25px; left: 35px"
           round
           size="8px"
-          color="primary"
+          color="positive"
           icon="add"
           @click="plusFirstPlayerPoint"
         />
@@ -15,7 +15,7 @@
           style="position: absolute; top: 40px; left: 35px"
           size="8px"
           round
-          color="primary"
+          color="negative"
           icon="remove"
           @click="minusFirstPlayerPoint"
         />
@@ -33,7 +33,7 @@
           style="position: absolute; top: -65px; right: 35px"
           round
           size="8px"
-          color="primary"
+          color="positive"
           icon="add"
           @click="plusSecondPlayerPoint"
         />
@@ -41,7 +41,7 @@
           style="position: absolute; top: 0px; right: 35px"
           size="8px"
           round
-          color="primary"
+          color="negative"
           icon="remove"
           @click="minusSecondPlayerPoint"
         />
@@ -57,15 +57,15 @@
       <q-btn
         style="position: absolute; top: 12px; left: -130px; width: 120px"
         rounded
-        color="primary"
-        @click="plusFirstPlayerPoint"
+        color="info"
+        @click="updateMatchPoint"
         label="Update Point"
       />
       <q-btn
         style="position: absolute; top: 53px; left: -130px; width: 120px"
         rounded
         color="primary"
-        @click="plusFirstPlayerPoint"
+        @click="finishMatch"
         label="Finish Match"
       />
     </div>
@@ -73,7 +73,11 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
+import api from 'src/services/api'
+import { Notify } from 'quasar'
+
 export interface BrancheComponentProps {
+  id: number
   firstPlayerName: string
   firstPlayerPoint: number
   secondPlayerName: string
@@ -82,6 +86,7 @@ export interface BrancheComponentProps {
 }
 
 const props = withDefaults(defineProps<BrancheComponentProps>(), {
+  id: 0,
   firstPlayerName: '',
   firstPlayerPoint: 0,
   secondPlayerName: '',
@@ -91,12 +96,14 @@ const props = withDefaults(defineProps<BrancheComponentProps>(), {
 
 const firstPlayerPoint = ref(props.firstPlayerPoint)
 const secondPlayerPoint = ref(props.secondPlayerPoint)
+const id = ref(props.id)
 
 const plusFirstPlayerPoint = () => {
   firstPlayerPoint.value += 1
 }
 
 const minusFirstPlayerPoint = () => {
+  if (firstPlayerPoint.value == 0) return;
   firstPlayerPoint.value -= 1
 }
 
@@ -105,7 +112,40 @@ const plusSecondPlayerPoint = () => {
 }
 
 const minusSecondPlayerPoint = () => {
+  if (secondPlayerPoint.value == 0) return;
   secondPlayerPoint.value -= 1
+}
+
+const updateMatchPoint = async () => {
+  const updateInfo = {
+    id: id.value,
+    firstPlayerPoint: firstPlayerPoint.value,
+    secondPlayerPoint: secondPlayerPoint.value,
+  }
+  const updateInfoJson = JSON.stringify(updateInfo)
+  try {
+    await api.put('matches/update-match-point', updateInfoJson)
+    Notify.create({
+      type: 'positive',
+      position:'top-right',
+      message: 'Update successed!',
+    })
+  } catch (error) {
+    console.error('Error fetching players:', error)
+  }
+}
+
+const finishMatch = async () =>{
+  try {
+    await api.put(`matches/match-finish/${id.value}`)
+    Notify.create({
+      type: 'positive',
+      position:'top-right',
+      message: 'Update successed!',
+    })
+  } catch (error) {
+    console.error('Error:', error)
+  }
 }
 </script>
 <style lang="scss">

@@ -22,6 +22,7 @@
               class="bg-white text-primary"
               v-for="(match, index) in matches.filter((m) => m.stage == 1)"
               :key="index"
+              :id="match.id"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
               :secondPlayerName="match.secondPlayerName"
@@ -41,6 +42,7 @@
               class="bg-white text-primary"
               v-for="(match, index) in matches.filter((m) => m.stage == 2)"
               :key="index"
+              :id="match.id"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
               :secondPlayerName="match.secondPlayerName"
@@ -59,6 +61,7 @@
             <BrancheComponent
               class="bg-white text-primary"
               v-for="(match, index) in matches.filter((m) => m.stage == 3)"
+              :id="match.id"
               :key="index"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
@@ -79,6 +82,7 @@
               class="bg-white text-primary"
               v-for="(match, index) in matches.filter((m) => m.stage == 4)"
               :key="index"
+              :id="match.id"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
               :secondPlayerName="match.secondPlayerName"
@@ -98,6 +102,7 @@
               class="bg-white text-primary"
               v-for="(match, index) in matches.filter((m) => m.stage == 5)"
               :key="index"
+              :id="match.id"
               :firstPlayerName="match.firstPlayerName"
               :firstPlayerPoint="match.firstPlayerPoint"
               :secondPlayerName="match.secondPlayerName"
@@ -139,6 +144,7 @@ const fetchMatchs = async () => {
   try {
     const response = await api.get(`/matches/by-event/${eventId}`)
     const data = response.data
+    console.log(data);
     matches.value = data
   } catch (error) {
     console.log('Error fetching player: ', error)

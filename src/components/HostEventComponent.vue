@@ -1,5 +1,5 @@
 <template lang="">
-  <q-intersection class="intersection-item">
+  <q-intersection class="host-intersection-item">
     <q-card flat bordered class="q-ma-sm cursor-pointer">
       <q-img src="https://cdn.quasar.dev/img/mountains.jpg" img-class="item-background-image">
         <div
@@ -58,9 +58,9 @@ withDefaults(defineProps<EventComponentProps>(), {
 })
 </script>
 <style lang="sass" scoped>
-.intersection-item
+.host-intersection-item
     height: 350px
-    width: 350px
+    width: 23%
 </style>
 
 <style lang="sass">
