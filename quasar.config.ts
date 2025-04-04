@@ -73,7 +73,11 @@ export default defineConfig((/* ctx */) => {
             useFlatConfig: true
           }
         }, { server: false }]
-      ]
+      ],
+      extendViteConf(viteConf) {
+        viteConf.server = viteConf.server || {};
+        viteConf.server.allowedHosts = ['e589-113-23-54-101.ngrok-free.app']; // Add your Ngrok host here
+      }
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
