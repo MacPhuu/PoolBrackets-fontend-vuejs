@@ -1,7 +1,7 @@
 <template>
   <q-page class="row justify-center q-pa-lg">
     <div
-      class="col-5 text-center bg-white q-ma-sm q-pa-xl"
+      class="col-5 text-center bg-no-4 q-ma-sm q-pa-xl"
       style="max-height: 500px; max-width: 500px"
     >
       <q-img
@@ -12,7 +12,7 @@
       />
       <div class="q-mt-lg text-h4 text-primary">Host Name</div>
     </div>
-    <div class="col text-center bg-white q-ma-sm" style="max-height: 500px; max-width: 700px">
+    <div class="col text-center bg-no-4 q-ma-sm" style="max-height: 500px; max-width: 700px">
       <div class="text-h5 text-bold q-pa-lg">INFORMATION</div>
       <div class="row q-pa-lg">
         <div class="col text-left text-italic" style="padding-left: 20px">

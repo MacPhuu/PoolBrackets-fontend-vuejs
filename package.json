@@ -1,8 +1,8 @@
 {
-  "name": "poolbrackets-project",
+  "name": "shotsync_ranking-project",
   "version": "0.0.1",
   "description": "this is a project for pool players",
-  "productName": "PoolBrackets",
+  "productName": "ShotSync Ranking",
   "author": "MacPhuu <macphuzz@gmail.com>",
   "type": "module",
   "private": true,

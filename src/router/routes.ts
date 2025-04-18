@@ -7,21 +7,6 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: "", component: () => import("pages/IndexPage.vue") },
       {
-        path: "/host/profile/",
-        component: () => import("layouts/HostLayout.vue"),
-        meta: { requiresAuth: true },
-        children: [
-          {
-            path: "",
-            component: () => import("pages/Host/HostMainPage.vue"),
-          },
-          {
-            path: "events",
-            component: () => import("pages/Host/HostEventsPage.vue"),
-          },
-        ],
-      },
-      {
         path: "/news",
         component: () => import("pages/NewsPage.vue"),
         meta: { requiresAuth: true },
@@ -74,6 +59,25 @@ const routes: RouteRecordRaw[] = [
         path: "players/:playerName/",
         component: () => import("pages/Players/PlayerDetailPage.vue"),
         meta: { requiresAuth: true },
+      },
+    ],
+  },
+  {
+    path: "/host",
+    component: () => import("layouts/HostLayout.vue"),
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: "profiles",
+        component: () => import("pages/Host/HostMainPage.vue"),
+      },
+      {
+        path: "your_events",
+        component: () => import("pages/Host/HostEventsPage.vue"),
+      },
+      {
+        path: "create_event",
+        component: () => import("pages/Host/HostCreateEventPage.vue"),
       },
     ],
   },

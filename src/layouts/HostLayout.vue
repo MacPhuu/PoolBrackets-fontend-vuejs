@@ -1,48 +1,50 @@
 <template>
-  <q-layout view="lHh Lpr lFf" class="row">
-    <q-tabs
-      v-model="selectedTab"
-      dense
-      vertical
-      class="bg-no-5 col"
-      style="height: 100vh; max-width: 100px"
-      indicator-color="primary"
-    >
-      <NavBarComponent
-        v-for="(tab, index) in tabs"
-        :key="index"
-        :tabName="tab.tabName"
-        :tabLabel="tab.tabLabel"
-        :tabDes="tab.tabDes"
-        :tabIcon="tab.tabIcon"
-        style="padding-top: 15px; padding-bottom: 15px"
-        class="text-white"
-      />
-    </q-tabs>
-    <q-page-container class="col">
-      <router-view class="bg-no-4" />
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
+      <q-toolbar>
+        <q-toolbar-title class="column items-center text-weight-bold text-h3 q-my-lg">
+          ShotSync Ranking
+        </q-toolbar-title>
+      </q-toolbar>
+      <q-tabs v-model="selectedTab">
+        <NavBarComponent
+          v-for="(tab, index) in tabs"
+          :key="index"
+          :tabName="tab.tabName"
+          :tabLabel="tab.tabLabel"
+          :tabDes="tab.tabDes"
+          tabIcon=""
+        />
+      </q-tabs>
+    </q-header>
+    <q-footer elevated>
+      <q-toolbar>
+        <q-toolbar-title class="column items-center text-caption">
+          <span>Copyright <q-icon name="copyright" /> by macphu2801@gmail.com</span>
+        </q-toolbar-title>
+      </q-toolbar>
+    </q-footer>
+    <q-page-container>
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import NavBarComponent from 'components/NavBarComponent.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const tabs = ref([
-  {
-    tabName: '/host/profile',
-    tabLabel: 'General',
-    tabDes: '/host/profile',
-    tabIcon: 'account_circle',
-  },
-  {
-    tabName: '/host/profile/events',
-    tabLabel: 'Your Events',
-    tabDes: '/host/profile/events',
-    tabIcon: 'event',
-  },
+  { tabName: '/host/profiles', tabLabel: 'Profiles', tabDes: '/host/profiles' },
+  { tabName: '/host/your_events', tabLabel: 'Your Events', tabDes: '/host/your_events' },
 ])
 
-const selectedTab = ref('/host/profile')
+const selectedTab = ref(route.path)
+
+watch(route, (newRoute) => {
+  selectedTab.value = newRoute.path
+})
 </script>

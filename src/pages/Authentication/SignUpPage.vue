@@ -2,11 +2,11 @@
   <q-layout class="bg-no-1 window-height window-width row justify-center items-center">
     <div class="column">
       <div class="row items-center justify-center">
-        <div class="text-h3 text-secondary text-bold">PoolBrackets.</div>
+        <div class="text-h3 text-secondary text-bold">ShotSync Ranking.</div>
       </div>
       <div class="row items-center justify-center">
         <div class="text-h6 text-white q-mb-lg">
-          Welcome to the <span class="text-secondary">PoolBrackets.</span> live scoring.
+          Welcome to the <span class="text-secondary">ShotSync Ranking.</span> live scoring.
         </div>
       </div>
       <div class="row">

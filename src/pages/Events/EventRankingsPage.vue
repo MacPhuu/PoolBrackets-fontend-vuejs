@@ -65,13 +65,6 @@
 </template>
 
 <script setup lang="ts">
-//import { useRoute } from 'vue-router'
-
-// Sử dụng useRoute để lấy thông tin về route hiện tại
-//const route = useRoute()
-
-// Truy xuất eventSlug từ params của route
-//const eventSlug = route.params.eventSlug
 import { ref, onMounted } from 'vue'
 import PlayerComponent from 'components/PlayerComponent.vue'
 import type { Player } from '../../components/models'

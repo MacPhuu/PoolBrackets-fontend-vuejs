@@ -3,7 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title class="column items-center text-weight-bold text-h3 q-my-lg">
-          PoolBrackets
+          ShotSync Ranking
         </q-toolbar-title>
       </q-toolbar>
       <q-tabs v-model="selectedTab">
