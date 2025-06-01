@@ -40,6 +40,7 @@ const route = useRoute()
 const tabs = ref([
   { tabName: '/host/profiles', tabLabel: 'Profiles', tabDes: '/host/profiles' },
   { tabName: '/host/your_events', tabLabel: 'Your Events', tabDes: '/host/your_events' },
+  { tabName: '/host/purchase', tabLabel: 'Purchase', tabDes: '/host/purchase' },
 ])
 
 const selectedTab = ref(route.path)

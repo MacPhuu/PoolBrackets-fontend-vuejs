@@ -15,9 +15,6 @@ import routes from "./routes";
  * async/await or return a Promise which resolves
  * with the Router instance.
  */
-function isAuthenticated() {
-  return localStorage.getItem("Token");
-}
 
 export default defineRouter(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
@@ -37,11 +34,20 @@ export default defineRouter(function (/* { store, ssrContext } */) {
   });
 
   Router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth && !isAuthenticated()) {
-      next({ path: "/login" });
-    } else {
-      next();
+    const token = localStorage.getItem("Token");
+    const role = parseInt(localStorage.getItem("role") || "-1");
+
+    if (to.meta.requiresAuth && !token) {
+      return next({ path: "/login" });
     }
+
+    const allowedRoles = to.meta.allowedRoles as number[] | undefined;
+
+    if (allowedRoles && !allowedRoles.includes(role)) {
+      return next({ path: "/unauthorized" }); // Hoặc '/' hoặc '/login'
+    }
+
+    next();
   });
 
   return Router;

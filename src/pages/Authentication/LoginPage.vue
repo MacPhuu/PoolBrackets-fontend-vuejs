@@ -43,7 +43,7 @@
               />
             </q-card-actions>
             <q-card-section class="text-center q-pa-none">
-              <p class="text-grey-6">Not reigistered? Created an Account</p>
+              <p class="text-grey-6">Not registered? Create an account</p>
             </q-card-section>
           </q-card>
         </q-form>
@@ -67,16 +67,28 @@ const onSubmit = async () => {
     email: email.value,
     password: password.value,
   }
-  const loginInforJson = JSON.stringify(loginInfor)
-  try {
-    const response = await api.post('/login', loginInforJson)
 
-    localStorage.setItem('userName', response.data.userName)
-    localStorage.setItem('role', response.data.role)
-    localStorage.setItem('Token', response.data.token)
-    await router.push('/news')
+  try {
+    const response = await api.post('/login', loginInfor)
+
+    const token = response.data.token
+    const role = response.data.role
+    const userName = response.data.userName
+
+    // Lưu thông tin vào localStorage
+    localStorage.setItem('Token', token)
+    localStorage.setItem('role', role)
+    localStorage.setItem('userName', userName)
+
+    // Chuyển hướng dựa trên role
+    if (String(role) === '1') {
+      await router.replace({ path: '/host/your_events' })
+    } else {
+      await router.replace({ path: '/news' })
+    }
   } catch (error) {
     console.error('Login failed:', error)
+    // Có thể hiển thị thông báo lỗi bằng Notify
   }
 }
 </script>
