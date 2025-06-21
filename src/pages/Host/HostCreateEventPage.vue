@@ -3,7 +3,7 @@
     <q-form @submit.prevent="submitForm" class="q-gutter-md col-8">
       <q-input v-model="form.tournamentName" label="Tên giải đấu" outlined required />
 
-      <q-input v-model="form.description" type="textarea" label="Mô tả" outlined autogrow />
+      <q-input v-model="form.slogan" type="textarea" label="Slogan(Optional)" outlined autogrow />
 
       <q-input v-model="form.venue" label="Tên câu lạc bộ" outlined required />
 
@@ -30,12 +30,22 @@
       />
 
       <q-input
+        v-model.number="form.profit"
+        type="number"
+        label="Tổng giải thưởng (VNĐ)"
+        outlined
+        required
+      />
+
+      <q-input
         v-model.number="form.maxParticipants"
         type="number"
         label="Số lượng người tham gia tối đa"
         outlined
         required
       />
+
+      <q-editor v-model="form.description" min-height="5rem" />
 
       <div class="row justify-end">
         <q-btn label="Tạo giải đấu" type="submit" color="primary" />
@@ -49,17 +59,26 @@ import { ref } from 'vue'
 
 const form = ref({
   tournamentName: '',
-  description: '',
+  slogan: '',
   venue: '',
   location: '',
   date: '',
   time: '',
   format: '',
   fee: null,
+  profit: null,
   maxParticipants: null,
+  description: 'Nhập mô tả về giải đấu...',
 })
 
-const formats = ['Đơn loại trực tiếp', 'Đơn vòng tròn', 'Đôi loại trực tiếp', 'Đôi vòng tròn']
+const formats = [
+  'Single Elimination',
+  'Double Elimination',
+  'Round Robin',
+  'Swiss',
+  ' Free for all',
+  'Leaderboard',
+]
 
 function submitForm() {
   // Xử lý logic submit ở đây (gửi API hoặc lưu local)

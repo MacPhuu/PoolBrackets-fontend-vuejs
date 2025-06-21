@@ -3,6 +3,7 @@ import type { RouteRecordRaw } from "vue-router";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
+    meta: { requiresAuth: true, allowedRoles: [3] },
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "", component: () => import("pages/IndexPage.vue") },
@@ -65,7 +66,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/host",
     component: () => import("layouts/HostLayout.vue"),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, allowedRoles: [2] },
     children: [
       {
         path: "profiles",
@@ -78,6 +79,25 @@ const routes: RouteRecordRaw[] = [
       {
         path: "create_event",
         component: () => import("pages/Host/HostCreateEventPage.vue"),
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    component: () => import("layouts/AdminLayout.vue"),
+    meta: { requiresAuth: false, allowedRoles: [1] },
+    children: [
+      {
+        path: "app_status",
+        component: () => import("pages/Admin/AdminMainPage.vue"),
+      },
+      {
+        path: "view_hosts",
+        component: () => import("pages/Admin/AdminViewHostsPage.vue"),
+      },
+      {
+        path: "view_players",
+        component: () => import("pages/Admin/AdminViewPlayersPage.vue"),
       },
     ],
   },

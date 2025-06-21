@@ -38,9 +38,9 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const tabs = ref([
-  { tabName: '/host/profiles', tabLabel: 'Profiles', tabDes: '/host/profiles' },
-  { tabName: '/host/your_events', tabLabel: 'Your Events', tabDes: '/host/your_events' },
-  { tabName: '/host/purchase', tabLabel: 'Purchase', tabDes: '/host/purchase' },
+  { tabName: '/admin/app_status', tabLabel: 'App Status', tabDes: '/admin/app_status' },
+  { tabName: '/admin/view_hosts', tabLabel: 'View Hosts', tabDes: '/admin/view_hosts' },
+  { tabName: '/admin/view_players', tabLabel: 'View Players', tabDes: '/admin/view_players' },
 ])
 
 const selectedTab = ref(route.path)
