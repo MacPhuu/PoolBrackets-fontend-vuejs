@@ -83,7 +83,8 @@ const tabs = ref([
   { name: 'event-branches', label: 'Branches', tabDes: '/event-branches' },
   { name: 'event-rankings', label: 'Rankings', tabDes: '/event-rankings' },
 ])
-const selectedTab = (pathSegmentation(route.path) == ''? ref('player-list') : ref(pathSegmentation(route.path)))
+const selectedTab =
+  pathSegmentation(route.path) == '' ? ref('player-list') : ref(pathSegmentation(route.path))
 
 const event = ref<Event>({
   id: 0,
@@ -116,7 +117,7 @@ onMounted(async () => {
 
 watch(route, (newRoute) => {
   const currPath = pathSegmentation(newRoute.path)
-  selectedTab.value = currPath=='' || currPath == undefined? 'player-list' : currPath
+  selectedTab.value = currPath == '' || currPath == undefined ? 'player-list' : currPath
 })
 </script>
 

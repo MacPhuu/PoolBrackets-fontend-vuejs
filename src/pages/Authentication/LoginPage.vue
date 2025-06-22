@@ -75,20 +75,23 @@ const onSubmit = async () => {
     const role = response.data.role
     const userName = response.data.userName
 
-    // Lưu thông tin vào localStorage
     localStorage.setItem('Token', token)
     localStorage.setItem('role', role)
     localStorage.setItem('userName', userName)
 
-    // Chuyển hướng dựa trên role
-    if (String(role) === '1') {
-      await router.replace({ path: '/host/your_events' })
-    } else {
-      await router.replace({ path: '/news' })
+    const roleRoutes: Record<number, string> = {
+      1: '/admin/app_status',
+      2: '/host/profiles',
+      3: '/news',
     }
+
+    const targetRoute = roleRoutes[role] || '/login'
+
+    await router.push(targetRoute)
+    // Có thể thêm xử lý khác sau khi điều hướng thành công
   } catch (error) {
     console.error('Login failed:', error)
-    // Có thể hiển thị thông báo lỗi bằng Notify
+    // TODO: hiển thị Notify hoặc báo lỗi giao diện
   }
 }
 </script>

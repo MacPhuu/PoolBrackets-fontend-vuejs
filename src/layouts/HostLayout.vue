@@ -6,6 +6,10 @@
           ShotSync Ranking
         </q-toolbar-title>
       </q-toolbar>
+      <div style="position: absolute; top: 20px; right: 50px">
+        <q-btn flat round dense icon="logout" class="q-mr-xs" @click="logout" />
+        <q-btn flat round dense icon="account_circle" />
+      </div>
       <q-tabs v-model="selectedTab">
         <NavBarComponent
           v-for="(tab, index) in tabs"
@@ -17,6 +21,20 @@
         />
       </q-tabs>
     </q-header>
+
+    <q-dialog v-model="confirmLogoutDialog" persistent>
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Are you sure you want to leave now?</div>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn flat label="Logout" color="negative" @click="confirmLogout" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <q-footer elevated>
       <q-toolbar>
         <q-toolbar-title class="column items-center text-caption">
@@ -33,15 +51,31 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import NavBarComponent from 'components/NavBarComponent.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
+const confirmLogoutDialog = ref(false)
 
 const tabs = ref([
   { tabName: '/host/profiles', tabLabel: 'Profiles', tabDes: '/host/profiles' },
   { tabName: '/host/your_events', tabLabel: 'Your Events', tabDes: '/host/your_events' },
   { tabName: '/host/purchase', tabLabel: 'Purchase', tabDes: '/host/purchase' },
 ])
+
+const logout = () => {
+  confirmLogoutDialog.value = true
+}
+
+const confirmLogout = async () => {
+  localStorage.removeItem('Token')
+  localStorage.removeItem('role')
+  localStorage.removeItem('eventId')
+  localStorage.removeItem('userInfor')
+  localStorage.removeItem('userName')
+  confirmLogoutDialog.value = false
+  await router.push('/login')
+}
 
 const selectedTab = ref(route.path)
 
