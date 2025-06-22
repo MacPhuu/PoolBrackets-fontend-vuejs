@@ -144,7 +144,7 @@ const fetchMatchs = async () => {
   try {
     const response = await api.get(`/matches/by-event/${eventId}`)
     const data = response.data
-    console.log(data);
+    console.log(data)
     matches.value = data
   } catch (error) {
     console.log('Error fetching player: ', error)
