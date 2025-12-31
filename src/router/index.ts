@@ -20,8 +20,8 @@ export default defineRouter(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : process.env.VUE_ROUTER_MODE === "history"
-    ? createWebHistory
-    : createWebHashHistory;
+      ? createWebHistory
+      : createWebHashHistory;
 
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
@@ -44,11 +44,12 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     const allowedRoles = to.meta.allowedRoles as number[] | undefined;
 
     if (allowedRoles && !allowedRoles.includes(role)) {
-      return next({ path: "/unauthorized" }); // Hoặc '/' hoặc '/login'
+      return next({ path: "/unauthorized" });
     }
 
     next();
   });
+
 
   return Router;
 });
