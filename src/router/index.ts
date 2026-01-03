@@ -44,12 +44,11 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     const allowedRoles = to.meta.allowedRoles as number[] | undefined;
 
     if (allowedRoles && !allowedRoles.includes(role)) {
-      return next({ path: "/unauthorized" });
+      return next({ path: "/unauthorized" }); // Hoặc '/' hoặc '/login'
     }
 
     next();
   });
-
 
   return Router;
 });
