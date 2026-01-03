@@ -77,6 +77,34 @@ const routes: RouteRecordRaw[] = [
         component: () => import("pages/Host/HostEventsPage.vue"),
       },
       {
+        path: "/your_events/:eventName/",
+        component: () => import("layouts/EventLayout.vue"),
+        meta: { requiresAuth: true },
+        children: [
+          {
+            path: "",
+            name: "HostEventDetailPage",
+            component: () => import("pages/Events/EventDetailPage.vue"),
+          },
+          {
+            path: "/your_events/:eventName/event-rankings",
+            component: () => import("pages/Events/EventRankingsPage.vue"),
+          },
+          {
+            path: "/your_events/:eventName/event-live-score",
+            component: () => import("pages/Events/EventLiveScoresPage.vue"),
+          },
+          {
+            path: "/your_events/:eventName/event-branches",
+            component: () => import("pages/Events/EventBranchesPage.vue"),
+          },
+        ],
+      },
+      {
+        path: "purchase",
+        component: () => import("pages/NewsPage.vue"),
+      },
+      {
         path: "create_event",
         component: () => import("pages/Host/HostCreateEventPage.vue"),
       },

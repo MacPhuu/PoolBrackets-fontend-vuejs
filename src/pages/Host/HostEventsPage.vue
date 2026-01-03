@@ -68,7 +68,7 @@ const fetchEvents = async () => {
 
 const handleEventClick = async (event: string, id: number) => {
   eventStore.setEventId(id)
-  await router.push({ name: 'EventDetailPage', params: { eventName: event } })
+  await router.push({ name: 'HostEventDetailPage', params: { eventName: event } })
 }
 
 const createTournament = async () => {

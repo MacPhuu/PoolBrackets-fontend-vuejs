@@ -107,7 +107,9 @@ const fetchEvents = async () => {
 }
 
 const eventTabsHandle = async (tabDes: string) => {
-  const newRoute = `/events/${eventNameStr}${tabDes}`
+  const role = localStorage.getItem('role')
+  const basePath = role === '2' ? '/your_events' : '/events'
+  const newRoute = `${basePath}/${eventNameStr}${tabDes}`
   await router.push(newRoute)
 }
 
